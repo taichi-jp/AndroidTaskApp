@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     };
     private ListView mListView;
     private TaskAdapter mTaskAdapter;
+    private SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +51,23 @@ public class MainActivity extends AppCompatActivity {
         mRealm = Realm.getDefaultInstance();
         mRealm.addChangeListener(mRealmListener);
 
+        mSearchView = findViewById(R.id.searchView);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                Log.d("SEARCH", "!!SEARCH!!");
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                Log.d("SEARCH", "!!CHANGE!!");
+                return false;
+            }
+        });
+
         mTaskAdapter = new TaskAdapter(MainActivity.this);
-        mListView = (ListView) findViewById(R.id.listView1);
+        mListView = findViewById(R.id.listView1);
 
         // ListViewをタップしたときの処理
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -104,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 builder.setNegativeButton("CANCEL", null);
-
                 AlertDialog dialog = builder.create();
                 dialog.show();
 
@@ -113,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         reloadListView();
-
     }
 
     private void reloadListView() {
@@ -133,5 +149,4 @@ public class MainActivity extends AppCompatActivity {
 
         mRealm.close();
     }
-
 }
