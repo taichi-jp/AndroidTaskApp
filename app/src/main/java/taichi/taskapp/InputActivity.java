@@ -76,21 +76,21 @@ public class InputActivity extends AppCompatActivity {
         setContentView(R.layout.activity_input);
 
         // ActionBarを設定する
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         // UI部品の設定
-        mDateButton = (Button)findViewById(R.id.date_button);
+        mDateButton = findViewById(R.id.date_button);
         mDateButton.setOnClickListener(mOnDateClickListener);
-        mTimeButton = (Button)findViewById(R.id.times_button);
+        mTimeButton = findViewById(R.id.times_button);
         mTimeButton.setOnClickListener(mOnTimeClickListener);
         findViewById(R.id.done_button).setOnClickListener(mOnDoneClickListener);
-        mTitleEdit = (EditText)findViewById(R.id.title_edit_text);
-        mContentEdit = (EditText)findViewById(R.id.content_edit_text);
-        mCategoryEdit = (EditText)findViewById(R.id.category_edit_text);
+        mTitleEdit = findViewById(R.id.title_edit_text);
+        mContentEdit = findViewById(R.id.content_edit_text);
+        mCategoryEdit = findViewById(R.id.category_edit_text);
 
         // EXTRA_TASK から Task の id を取得して、 id から Task のインスタンスを取得する
         Intent intent = getIntent();
